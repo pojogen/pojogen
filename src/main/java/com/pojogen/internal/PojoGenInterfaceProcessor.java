@@ -44,8 +44,6 @@ public class PojoGenInterfaceProcessor {
 				getInterfaceProperties());
 		String immutableClass = immutableGenerator.generateClass();
 
-		processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, immutableClass);
-
 		try {
 			JavaFileObject javaFile = processingEnv.getFiler().createSourceFile(String.format("%s.%s", packageName, immutableClassName));
 			Writer writer = javaFile.openWriter();
