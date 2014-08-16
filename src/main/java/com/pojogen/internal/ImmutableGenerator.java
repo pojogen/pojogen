@@ -88,7 +88,8 @@ class ImmutableGenerator {
 			String propertyName = property.getName();
 			Type propertyType = property.getType();
 
-			FieldDeclaration fieldDeclaration = codeGenerator.newFieldDeclaration(propertyType, propertyName);
+			FieldDeclaration fieldDeclaration = codeGenerator.newFieldDeclaration(codeGenerator.newModifiers(Modifier.PRIVATE),
+					propertyType, propertyName);
 			classDeclaration.bodyDeclarations().add(fieldDeclaration);
 
 			SingleVariableDeclaration constructorParameter = codeGenerator.newParameterDeclaration(propertyType, propertyName);

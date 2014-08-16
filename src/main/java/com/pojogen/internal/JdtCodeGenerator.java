@@ -107,9 +107,10 @@ class JdtCodeGenerator {
 		return variableDeclaration;
 	}
 
-	FieldDeclaration newFieldDeclaration(Type fieldType, String fieldName) {
+	FieldDeclaration newFieldDeclaration(Collection<? extends IExtendedModifier> modifiers, Type fieldType, String fieldName) {
 		VariableDeclarationFragment fieldVariableDeclaration = newVariableDeclarationFragment(fieldName);
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fieldVariableDeclaration);
+		fieldDeclaration.modifiers().addAll(modifiers);
 		fieldDeclaration.setType(newJdtType(fieldType));
 		return fieldDeclaration;
 	}
