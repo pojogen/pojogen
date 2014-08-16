@@ -107,6 +107,7 @@ class JdtCodeGenerator {
 		return variableDeclaration;
 	}
 
+	@SuppressWarnings("unchecked")
 	FieldDeclaration newFieldDeclaration(Collection<? extends IExtendedModifier> modifiers, Type fieldType, String fieldName) {
 		VariableDeclarationFragment fieldVariableDeclaration = newVariableDeclarationFragment(fieldName);
 		FieldDeclaration fieldDeclaration = ast.newFieldDeclaration(fieldVariableDeclaration);
