@@ -3,6 +3,8 @@ package com.pojogen.internal;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.dom.Block;
@@ -84,13 +86,15 @@ class ImmutableGenerator {
 		Expression newHashCodeBuilder = codeGenerator.newInstanceCreation("org.apache.commons.lang3.builder.HashCodeBuilder");
 		Expression hashCodeBuilderChain = newHashCodeBuilder;
 
+		List<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+		List<MethodDeclaration> getterDeclarations = new ArrayList<>();
 		for (Property property : properties) {
 			String propertyName = property.getName();
 			Type propertyType = property.getType();
 
 			FieldDeclaration fieldDeclaration = codeGenerator.newFieldDeclaration(codeGenerator.newModifiers(Modifier.PRIVATE),
 					propertyType, propertyName);
-			classDeclaration.bodyDeclarations().add(fieldDeclaration);
+			fieldDeclarations.add(fieldDeclaration);
 
 			SingleVariableDeclaration constructorParameter = codeGenerator.newParameterDeclaration(propertyType, propertyName);
 			constructorDeclaration.parameters().add(constructorParameter);
@@ -106,20 +110,24 @@ class ImmutableGenerator {
 			Expression hashFieldAccess = newThisFieldAccess(codeGenerator, propertyName);
 			hashCodeBuilderChain = codeGenerator.newMethodInvocation(hashCodeBuilderChain, "append", hashFieldAccess);
 
-			MethodDeclaration methodDeclaration = codeGenerator.newMethodDeclaration(codeGenerator.newModifiers(Modifier.PUBLIC),
+			MethodDeclaration getterDeclaration = codeGenerator.newMethodDeclaration(codeGenerator.newModifiers(Modifier.PUBLIC),
 					propertyType, String.format("get%s", StringUtils.capitalize(propertyName)));
 
 			Block methodBlock = codeGenerator.newBlock();
 			fieldAccess = newThisFieldAccess(codeGenerator, propertyName);
 			Statement methodReturn = codeGenerator.newReturnStatement(fieldAccess);
 			methodBlock.statements().add(methodReturn);
-			methodDeclaration.setBody(methodBlock);
+			getterDeclaration.setBody(methodBlock);
 
-			classDeclaration.bodyDeclarations().add(methodDeclaration);
+			getterDeclarations.add(getterDeclaration);
 		}
+
+		classDeclaration.bodyDeclarations().addAll(fieldDeclarations);
 
 		constructorDeclaration.setBody(constructorBlock);
 		classDeclaration.bodyDeclarations().add(constructorDeclaration);
+
+		classDeclaration.bodyDeclarations().addAll(getterDeclarations);
 
 		Expression equalsBuilderResult = codeGenerator.newMethodInvocation(equalsBuilderChain, "isEquals");
 		Statement returnEquals = codeGenerator.newReturnStatement(equalsBuilderResult);
