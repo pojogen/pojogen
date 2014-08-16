@@ -37,7 +37,8 @@ class ImmutableGenerator {
 		codeGenerator.setPackage(packageName);
 
 		Type interfaceType = new DeclaredType(interfaceName);
-		TypeDeclaration classDeclaration = codeGenerator.newClassDeclaration(className, interfaceType);
+		TypeDeclaration classDeclaration = codeGenerator.newClassDeclaration(codeGenerator.newModifiers(Modifier.FINAL), className,
+				interfaceType);
 
 		MethodDeclaration constructorDeclaration = codeGenerator.newConstructorDeclaration(className);
 		Block constructorBlock = codeGenerator.newBlock();

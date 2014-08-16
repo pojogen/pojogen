@@ -71,8 +71,9 @@ class JdtCodeGenerator {
 	}
 
 	@SuppressWarnings("unchecked")
-	TypeDeclaration newClassDeclaration(String className, Type... superInterfaces) {
+	TypeDeclaration newClassDeclaration(Collection<? extends IExtendedModifier> modifiers, String className, Type... superInterfaces) {
 		TypeDeclaration classDeclaration = ast.newTypeDeclaration();
+		classDeclaration.modifiers().addAll(modifiers);
 		classDeclaration.setName(ast.newSimpleName(className));
 		for (Type superInterface : superInterfaces) {
 			classDeclaration.superInterfaceTypes().add(newJdtType(superInterface));
