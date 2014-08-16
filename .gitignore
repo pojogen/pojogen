@@ -1,1 +1,14 @@
+# Gradle build directory
 build/
+
+# Eclipse build directory
+bin/
+
+# Eclipse workspace directory
+.metadata/
+
+# Eclipse project files
+.classpath
+.project
+.externalToolBuilders/
+.settings/
