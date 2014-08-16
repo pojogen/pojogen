@@ -17,15 +17,18 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IExtendedModifier;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
+import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -34,6 +37,7 @@ import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
 
 import com.google.common.base.Throwables;
+import com.pojogen.api.annotation.PojoGen;
 
 class JdtCodeGenerator {
 
@@ -73,6 +77,15 @@ class JdtCodeGenerator {
 	@SuppressWarnings("unchecked")
 	TypeDeclaration newClassDeclaration(Collection<? extends IExtendedModifier> modifiers, String className, Type... superInterfaces) {
 		TypeDeclaration classDeclaration = ast.newTypeDeclaration();
+		NormalAnnotation generated = ast.newNormalAnnotation();
+		generated.setTypeName(ast.newName("javax.annotation.Generated"));
+		MemberValuePair generatorProperty = ast.newMemberValuePair();
+		generatorProperty.setName(ast.newSimpleName("value"));
+		StringLiteral generatorClass = ast.newStringLiteral();
+		generatorClass.setLiteralValue(PojoGen.class.getName());
+		generatorProperty.setValue(generatorClass);
+		generated.values().add(generatorProperty);
+		classDeclaration.modifiers().add(generated);
 		classDeclaration.modifiers().addAll(modifiers);
 		classDeclaration.setName(ast.newSimpleName(className));
 		for (Type superInterface : superInterfaces) {
