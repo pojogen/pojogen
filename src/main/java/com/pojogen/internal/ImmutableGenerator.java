@@ -49,6 +49,7 @@ class ImmutableGenerator {
 		SingleVariableDeclaration equalsParameter = codeGenerator.newParameterDeclaration(new DeclaredType("Object"), objName);
 		MethodDeclaration equalsDeclaration = codeGenerator.newMethodDeclaration(codeGenerator.newModifiers(Modifier.PUBLIC),
 				new PrimitiveType(Boolean.TYPE), "equals", equalsParameter);
+		codeGenerator.addOverrideAnnotation(equalsDeclaration);
 
 		Block equalsBlock = codeGenerator.newBlock();
 		Expression nullLiteral = codeGenerator.newNullLiteral();
@@ -81,6 +82,7 @@ class ImmutableGenerator {
 
 		MethodDeclaration hashCodeDeclaration = codeGenerator.newMethodDeclaration(codeGenerator.newModifiers(Modifier.PUBLIC),
 				new PrimitiveType(Integer.TYPE), "hashCode");
+		codeGenerator.addOverrideAnnotation(hashCodeDeclaration);
 
 		Block hashCodeBlock = codeGenerator.newBlock();
 		Expression newHashCodeBuilder = codeGenerator.newInstanceCreation("org.apache.commons.lang3.builder.HashCodeBuilder");
@@ -112,6 +114,7 @@ class ImmutableGenerator {
 
 			MethodDeclaration getterDeclaration = codeGenerator.newMethodDeclaration(codeGenerator.newModifiers(Modifier.PUBLIC),
 					propertyType, String.format("get%s", StringUtils.capitalize(propertyName)));
+			codeGenerator.addOverrideAnnotation(getterDeclaration);
 
 			Block methodBlock = codeGenerator.newBlock();
 			fieldAccess = newThisFieldAccess(codeGenerator, propertyName);

@@ -17,6 +17,7 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IExtendedModifier;
 import org.eclipse.jdt.core.dom.IfStatement;
 import org.eclipse.jdt.core.dom.InfixExpression;
+import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -111,6 +112,13 @@ class JdtCodeGenerator {
 		methodDeclaration.setName(ast.newSimpleName(methodName));
 		methodDeclaration.parameters().addAll(Arrays.asList(parameters));
 		return methodDeclaration;
+	}
+
+	@SuppressWarnings("unchecked")
+	void addOverrideAnnotation(MethodDeclaration methodDeclaration) {
+		MarkerAnnotation override = ast.newMarkerAnnotation();
+		override.setTypeName(ast.newName("Override"));
+		methodDeclaration.modifiers().add(override);
 	}
 
 	SingleVariableDeclaration newParameterDeclaration(Type variableType, String variableName) {
