@@ -29,6 +29,28 @@ dependencies {
 		transitive = false
 	}
 	eclipseCompile 'org.eclipse.core:org.eclipse.core.resources:3.6.0.v20100526-0737'
+	
+	testCompile('com.google.testing.compile:compile-testing:0.5')
+	testCompile 'junit:junit:4.11'
+	testCompile files("${System.properties['java.home']}/../lib/tools.jar") // for javax.tools on Linux
+}
+
+// Support for expected sources with file: URLs is clumsy in compile-testing 0.5:
+// https://github.com/google/compile-testing/issues/39
+//
+// Package expected sources in JAR to use jar: URLs instead.
+task testJar(type: Jar) {
+	from sourceSets.test.resources.srcDir {
+		include '**/*.java'
+	}
+	destinationDir = buildDir
+	archiveName = 'test.jar'
+}
+
+test.dependsOn testJar
+
+test {
+	systemProperty 'test.jar', testJar.archivePath
 }
 
 eclipse {
