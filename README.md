@@ -38,6 +38,8 @@ This generates an immutable implementation of the interface with:
 * One getter method per property (as specified by the interface)
 * equals() and hashCode() methods based on all properties
 
+The generated class depends on [Apache Commons Lang 3.x](http://commons.apache.org/proper/commons-lang/)
+
 For example, this generates class [ImmutableOhlc](src/test/resources/com/pojogen/internal/ImmutableOhlc.java) from interface [Ohlc](src/test/resources/com/pojogen/internal/Ohlc.java).
 
 ## License
