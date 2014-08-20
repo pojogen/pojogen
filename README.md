@@ -6,11 +6,13 @@ pojogen is a [Java annotation processor](http://docs.oracle.com/javase/7/docs/ap
 [![Build Status](https://travis-ci.org/pojogen/pojogen.svg?branch=master)](https://travis-ci.org/pojogen/pojogen)
 
 ## Building
+
 To build pojogen, run the following at the root of the checkout:
 
     gradle assemble
     
 ## Installing
+
 To use pojogen in your Java project, configure your Java compiler settings with the following:
 * Add com.pojogen.api.apt.PojoGenAnnotationProcessor as a Java annotation processor
 * Add the built pojogen.jar and its [dependencies](build.gradle) to the compiler classpath
@@ -30,6 +32,7 @@ pojogen has been tested on the following JDKs:
 Please let us know if you are using pojogen in other environments. You are welcome to submit pull requests to add support for further environments.
 
 ## Usage
+
 pojogen processes interfaces with a [@Pojogen annotation](src/main/java/com/pojogen/api/annotation/PojoGen.java). Such interfaces must be composed only of getter methods (no arguments, non-void return value). Each getter is interpreted as corresponding to a property of implementing objects. For these interfaces, pojogen generates classes with the following code generator.
 
 ### ImmutableGenerator
@@ -45,7 +48,6 @@ For example, this generates class [ImmutableOhlc](src/test/resources/com/pojogen
 ## License
 
 See the [LICENSE](LICENSE) file for licensing information.
-
 
 ## Support
 
