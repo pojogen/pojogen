@@ -15,7 +15,7 @@ To use pojogen in your Java project, configure your Java compiler settings with 
 * Add com.pojogen.api.apt.PojoGenAnnotationProcessor as a Java annotation processor
 * Add the built pojogen.jar and its [dependencies](build.gradle) to the compiler classpath
 
-The following example illustrate an installation of pojogen:
+The following example illustrates an installation of pojogen:
 * [Example: Gradle-based project using development version of pojogen](https://github.com/pojogen/pojogen-example-gradle-dev)
 
 ## Supported Platforms
