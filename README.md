@@ -1,11 +1,9 @@
 pojogen: POJO Generator
 ====================
 
-Overview
---------
-
 pojogen is a Java annotation processor that generates POJO class sources for @Pojogen annotated interfaces.
 
+[![Build Status](https://travis-ci.org/pojogen/pojogen.svg?branch=master)](https://travis-ci.org/pojogen/pojogen)
 
 Usage
 -----
