@@ -36,7 +36,8 @@ pojogen processes interfaces with a [@Pojogen annotation](src/main/java/com/pojo
 This generates an immutable implementation of the interface with:
 * A constructor with one argument per property
 * One getter method per property (as specified by the interface)
-* equals() and hashCode() methods based on all properties 
+* equals() and hashCode() methods based on all properties
+
 For example, this generates class [ImmutableOhlc](src/test/resources/com/pojogen/internal/ImmutableOhlc.java) from interface [Ohlc](src/test/resources/com/pojogen/internal/Ohlc.java).
 
 ## License
