@@ -7,6 +7,7 @@ pojogen is a [Java annotation processor](http://docs.oracle.com/javase/7/docs/ap
 
 ## Building
 To build pojogen, run the following at the root of the checkout:
+
     gradle assemble
     
 ## Installing
