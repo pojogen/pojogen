@@ -25,7 +25,7 @@ Please let us know if you are using pojogen in other environments. You are welco
 License
 -------
 
-See the LICENSE file for licensing information.
+See the [LICENSE](https://github.com/pojogen/pojogen/blob/master/LICENSE) file for licensing information.
 
 
 Support
